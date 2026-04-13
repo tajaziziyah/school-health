@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تواصل مادة الرياضيات</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --moe:#00A693;--moe-d:#007a6b;--moe-dd:#004d43;--moe-l:#33bfb0;
+  --sky:#edfaf8;--sky2:#d4f3ef;--sky3:#a8e8e2;
+  --gold:#c8960a;--gold2:#f0c040;--gold3:#fff3cd;
+  --t1:#0a2e2b;--t2:#1e6b62;--t3:#5aada5;
+  --r:16px;--r-sm:10px;--sh:0 4px 24px rgba(0,100,88,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'Tajawal',sans-serif;background:var(--sky);color:var(--t1);direction:rtl;overflow-x:hidden;}
+.screen{display:none;min-height:100vh;flex-direction:column;}
+.screen.active{display:flex;}
+
+/* LANDING */
+#sc-land{background:linear-gradient(155deg,var(--moe-dd) 0%,var(--moe-d) 55%,var(--moe) 100%);position:relative;overflow:hidden;}
+#sc-land::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 50% at 85% 15%,rgba(255,255,255,.07) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 15% 85%,rgba(255,255,255,.05) 0%,transparent 70%);}
+.land-dots{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:24px 24px;}
+.date-bar{position:relative;z-index:2;padding:12px 20px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;border-bottom:1px solid rgba(255,255,255,.08);}
+.date-hijri{font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;color:rgba(255,255,255,.9);}
+.date-miladi{font-size:11px;color:rgba(255,255,255,.5);}
+.date-time{font-family:'Cairo',sans-serif;font-size:17px;font-weight:800;color:var(--gold2);letter-spacing:2px;font-variant-numeric:tabular-nums;background:rgba(200,150,10,.12);border:1px solid rgba(200,150,10,.2);padding:3px 16px;border-radius:20px;margin-top:2px;}
+.land-hero{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:30px 20px 18px;flex:1;}
+.land-icon-wrap{width:82px;height:82px;border-radius:22px;background:rgba(255,255,255,.11);border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:38px;margin-bottom:16px;box-shadow:0 8px 30px rgba(0,0,0,.25);backdrop-filter:blur(10px);}
+.land-title{font-family:'Cairo',sans-serif;font-size:21px;font-weight:900;color:#fff;text-align:center;line-height:1.4;margin-bottom:4px;}
+.land-school{font-size:12px;color:rgba(255,255,255,.55);text-align:center;margin-bottom:26px;}
+.portal-card{width:100%;max-width:390px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:20px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);backdrop-filter:blur(14px);position:relative;overflow:hidden;}
+.portal-card::after{content:'';position:absolute;top:0;right:0;bottom:0;width:4px;background:linear-gradient(180deg,#00dfc4,var(--moe));border-radius:0 var(--r) var(--r) 0;}
+.portal-card:hover{background:rgba(255,255,255,.18);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.3);}
+.pc-icon{width:50px;height:50px;border-radius:13px;background:rgba(0,166,147,.3);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0;}
+.pc-body{flex:1;}
+.pc-title{font-family:'Cairo',sans-serif;font-size:16px;font-weight:800;color:#fff;margin-bottom:2px;}
+.pc-desc{font-size:11px;color:rgba(255,255,255,.55);}
+.pc-arrow{color:rgba(255,255,255,.35);font-size:17px;}
+.admin-btn-wrap{position:relative;z-index:2;display:flex;justify-content:center;padding:16px 0 26px;}
+.admin-tiny{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);padding:8px 22px;border-radius:20px;font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px;}
+.admin-tiny:hover{background:rgba(255,255,255,.16);color:#fff;}
+
+/* HEADER */
+.hdr{padding:16px 18px 26px;position:relative;overflow:hidden;}
+.hdr.teal{background:linear-gradient(135deg,var(--moe-dd),var(--moe-d) 55%,var(--moe));}
+.hdr.gold{background:linear-gradient(135deg,#2a1800,#7a4e00,var(--gold));}
+.hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:22px;background:var(--sky);border-radius:22px 22px 0 0;}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+.hdr-school{font-size:10px;color:rgba(255,255,255,.5);}
+.hdr-back{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;padding:6px 14px;border-radius:16px;font-family:'Tajawal',sans-serif;font-size:13px;cursor:pointer;}
+.hdr-title{font-family:'Cairo',sans-serif;font-size:19px;font-weight:900;color:#fff;}
+.hdr-sub{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;}
+
+/* DATE STRIP */
+.date-strip{background:#fff;border-bottom:1px solid var(--sky2);padding:10px 16px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;}
+.ds-hijri{font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;color:var(--moe-d);}
+.ds-miladi{font-size:11px;color:var(--t3);}
+.ds-time{font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;color:var(--gold);letter-spacing:1px;}
+
+/* CONTENT */
+.content{padding:12px 16px 48px;max-width:500px;margin:0 auto;width:100%;flex:1;}
+.card{background:#fff;border-radius:var(--r);padding:18px 16px;margin-bottom:13px;box-shadow:var(--sh);border:1px solid rgba(0,166,147,.08);}
+.fg{margin-bottom:14px;}
+.fl{display:block;font-size:13px;font-weight:600;color:var(--t2);margin-bottom:6px;}
+.fi,.fs,.fta{width:100%;padding:12px 14px;border:2px solid var(--sky3);border-radius:var(--r-sm);font-family:'Tajawal',sans-serif;font-size:15px;color:var(--t1);background:#fff;outline:none;direction:rtl;transition:border-color .2s,box-shadow .2s;}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--moe);box-shadow:0 0 0 3px rgba(0,166,147,.1);}
+.fta{resize:vertical;min-height:85px;}
+
+/* BUTTONS */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border-radius:var(--r-sm);font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;border:none;transition:all .22s;width:100%;}
+.btn-moe{background:linear-gradient(135deg,var(--moe-d),var(--moe));color:#fff;box-shadow:0 4px 16px rgba(0,100,88,.28);}
+.btn-moe:hover{transform:translateY(-2px);}
+.btn-gold{background:linear-gradient(135deg,#7a4e00,var(--gold));color:#fff;}
+.btn-ghost{background:var(--sky);color:var(--t2);}
+.btn-sm{padding:6px 13px;font-size:12px;width:auto;border-radius:16px;}
+.btn-approve{background:#e0f7f5;color:var(--moe-d);border:1px solid var(--sky3);}
+.btn-review{background:#e3f2fd;color:#1565c0;border:1px solid #bbdefb;}
+.btn-reply{background:#fff8e1;color:#e65100;border:1px solid #ffe082;}
+.btn-del{background:#fce4ec;color:#b71c1c;border:1px solid #f8bbd0;}
+
+/* BADGES */
+.badge{padding:4px 11px;border-radius:14px;font-size:11px;font-weight:700;white-space:nowrap;}
+.b-pending{background:#fff3e0;color:#e67e22;border:1px solid #ffe0b2;}
+.b-review{background:#e3f2fd;color:#1565c0;border:1px solid #bbdefb;}
+.b-done{background:var(--sky2);color:var(--moe-d);border:1px solid var(--sky3);}
+
+/* TYPE TAGS */
+.tt{display:inline-block;padding:3px 9px;border-radius:10px;font-size:11px;font-weight:600;margin-bottom:4px;}
+.tt-level{background:#e3f2fd;color:#1565c0;}
+.tt-homework{background:#f3e5f5;color:#6a1b9a;}
+.tt-reexam{background:#e8f5e9;color:#2e7d32;}
+.tt-exam{background:#fff3e0;color:#e65100;}
+.tt-behavior{background:#fce4ec;color:#b71c1c;}
+.tt-study{background:#e8eaf6;color:#283593;}
+.tt-health{background:#fff8e1;color:#f57f17;}
+.tt-teacher{background:#e0f2f1;color:var(--moe-d);}
+.tt-school{background:#f5f5f5;color:#555;}
+.tt-activity{background:#e8f5e9;color:#1b5e20;}
+
+/* TABS */
+.tabs{display:flex;background:var(--sky2);border-radius:var(--r-sm);padding:3px;margin-bottom:16px;gap:3px;}
+.tab{flex:1;padding:8px 4px;text-align:center;border-radius:8px;font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;color:var(--t3);border:none;background:transparent;transition:all .18s;}
+.tab.on{background:#fff;color:var(--moe);box-shadow:0 2px 8px rgba(0,0,0,.07);}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-bottom:16px;}
+.stat{background:#fff;border-radius:var(--r-sm);padding:14px 8px;text-align:center;box-shadow:var(--sh);}
+.stat-n{font-family:'Cairo',sans-serif;font-size:26px;font-weight:900;color:var(--moe);}
+.stat-l{font-size:10px;color:var(--t3);}
+
+/* WELCOME */
+.sw{background:linear-gradient(135deg,var(--moe-dd),var(--moe));border-radius:var(--r);padding:18px 16px;display:flex;align-items:center;gap:14px;margin-bottom:16px;position:relative;overflow:hidden;}
+.sw::before{content:'';position:absolute;top:-20px;left:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.05);}
+.sw-av{width:64px;height:64px;border-radius:50%;border:3px solid rgba(255,255,255,.3);flex-shrink:0;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:26px;overflow:hidden;}
+.sw-av img{width:100%;height:100%;object-fit:cover;}
+.sw-name{font-family:'Cairo',sans-serif;font-size:16px;font-weight:800;color:#fff;margin-bottom:2px;}
+.sw-info{font-size:11px;color:rgba(255,255,255,.65);}
+.sw-hijri{font-size:12px;font-weight:700;color:rgba(255,255,255,.85);margin-top:5px;}
+.sw-miladi{font-size:10px;color:rgba(255,255,255,.5);}
+
+/* THANK YOU */
+.thank-banner{background:linear-gradient(135deg,#004d43,var(--moe));border-radius:var(--r);padding:16px 18px;margin-bottom:16px;display:none;align-items:center;gap:12px;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);}
+.thank-banner.show{display:flex;}
+@keyframes popIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:scale(1);}}
+.tb-icon{font-size:32px;flex-shrink:0;}
+.tb-text h3{font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;color:#fff;margin-bottom:2px;}
+.tb-text p{font-size:12px;color:rgba(255,255,255,.7);line-height:1.6;}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.svc{background:var(--sky);border:2px solid var(--sky3);border-radius:var(--r-sm);padding:13px 8px;text-align:center;cursor:pointer;transition:all .18s;}
+.svc:hover{border-color:var(--moe-l);background:var(--sky2);}
+.svc.sel{border-color:var(--moe);background:var(--sky2);box-shadow:0 0 0 3px rgba(0,166,147,.12);}
+.svc-i{font-size:22px;margin-bottom:5px;}
+.svc-l{font-size:11px;font-weight:600;color:var(--t1);line-height:1.3;}
+
+/* ═══ BIG STATUS ICON ═══ */
+.status-icon-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  padding:18px 10px 14px;
+  margin-bottom:14px;
+}
+.status-big-icon{
+  width:80px;height:80px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;margin-bottom:10px;position:relative;
+}
+/* pending — نابض برتقالي */
+.status-big-icon.s-pending{
+  background:linear-gradient(135deg,#fff3e0,#ffe0b2);
+  box-shadow:0 0 0 0 rgba(230,126,34,.4);
+  animation:pulsePending 2s infinite;
+}
+@keyframes pulsePending{
+  0%{box-shadow:0 0 0 0 rgba(230,126,34,.4);}
+  60%{box-shadow:0 0 0 16px rgba(230,126,34,0);}
+  100%{box-shadow:0 0 0 0 rgba(230,126,34,0);}
+}
+/* review — دوران أزرق */
+.status-big-icon.s-review{
+  background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+  animation:spinReview 2.5s linear infinite;
+}
+@keyframes spinReview{
+  0%{box-shadow:0 0 0 0 rgba(21,101,192,.3),0 4px 20px rgba(21,101,192,.2);}
+  50%{box-shadow:0 0 0 12px rgba(21,101,192,0),0 4px 20px rgba(21,101,192,.3);}
+  100%{box-shadow:0 0 0 0 rgba(21,101,192,0),0 4px 20px rgba(21,101,192,.2);}
+}
+.status-big-icon.s-review::after{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:3px solid transparent;
+  border-top-color:#1565c0;border-right-color:#1565c0;
+  animation:rotateBorder 1.2s linear infinite;
+}
+@keyframes rotateBorder{to{transform:rotate(360deg);}}
+/* done — اهتزاز أخضر احتفالي */
+.status-big-icon.s-done{
+  background:linear-gradient(135deg,#e0f7f4,#a8e8e2);
+  animation:bounceDone .6s cubic-bezier(.34,1.56,.64,1) both;
+  box-shadow:0 8px 24px rgba(0,166,147,.3);
+}
+@keyframes bounceDone{
+  0%{transform:scale(.5);opacity:0;}
+  80%{transform:scale(1.1);}
+  100%{transform:scale(1);opacity:1;}
+}
+.status-big-label{
+  font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;
+  margin-bottom:4px;
+}
+.status-big-label.s-pending{color:#e67e22;}
+.status-big-label.s-review{color:#1565c0;}
+.status-big-label.s-done{color:var(--moe-d);}
+.status-big-sub{font-size:12px;color:var(--t3);text-align:center;max-width:220px;}
+
+/* progress bar */
+.prog-bar-wrap{width:100%;max-width:280px;margin-top:12px;}
+.prog-bar-track{height:6px;background:var(--sky2);border-radius:10px;overflow:hidden;}
+.prog-bar-fill{height:100%;border-radius:10px;transition:width .8s cubic-bezier(.4,0,.2,1);}
+.prog-bar-fill.s-pending{width:20%;background:linear-gradient(90deg,#f39c12,#e67e22);}
+.prog-bar-fill.s-review{width:60%;background:linear-gradient(90deg,#1976d2,#42a5f5);animation:progressShimmer 2s infinite;}
+.prog-bar-fill.s-done{width:100%;background:linear-gradient(90deg,var(--moe-d),var(--moe));}
+@keyframes progressShimmer{
+  0%{background-position:200% 0;}
+  100%{background-position:-200% 0;}
+}
+.prog-steps{display:flex;justify-content:space-between;margin-top:6px;}
+.prog-step{font-size:9px;color:var(--t3);text-align:center;flex:1;}
+.prog-step.done-step{color:var(--moe-d);font-weight:700;}
+.prog-step.act-step{color:#1565c0;font-weight:700;}
+
+/* TIMELINE (kept small for admin) */
+.tl{display:flex;margin:8px 0 12px;}
+.tl-s{flex:1;text-align:center;position:relative;}
+.tl-s::after{content:'';position:absolute;top:13px;left:0;width:100%;height:2px;background:var(--sky3);z-index:0;}
+.tl-s:last-child::after{display:none;}
+.tl-d{width:26px;height:26px;border-radius:50%;background:var(--sky3);display:inline-flex;align-items:center;justify-content:center;font-size:11px;position:relative;z-index:1;margin-bottom:4px;}
+.tl-d.act{background:var(--moe);color:#fff;box-shadow:0 0 0 3px rgba(0,166,147,.2);}
+.tl-d.dn{background:#27ae60;color:#fff;}
+.tl-l{font-size:8px;color:var(--t3);display:block;line-height:1.4;}
+
+/* REQUEST CARD */
+.req-card{background:#fff;border-radius:var(--r);margin-bottom:14px;overflow:hidden;box-shadow:var(--sh);border:1px solid rgba(0,166,147,.08);}
+.req-card-hdr{padding:14px 16px 12px;border-bottom:1px solid var(--sky);display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.req-card-body{padding:14px 16px;}
+.req-dept-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.dept-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:#e3f2fd;}
+.dept-name{font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;color:var(--t1);}
+.req-hijri{font-size:11px;font-weight:600;color:var(--t2);}
+.req-miladi{font-size:10px;color:var(--t3);}
+.req-msg{font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:10px;}
+
+/* REPLY */
+.reply-box{background:linear-gradient(135deg,var(--sky),var(--sky2));border-radius:var(--r-sm);padding:14px;border-right:4px solid var(--moe);margin-top:10px;}
+.reply-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.reply-avatar{width:30px;height:30px;border-radius:50%;background:var(--moe);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.reply-from{font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;color:var(--moe-d);}
+.reply-when{font-size:10px;color:var(--t3);}
+.reply-text{font-size:13px;color:var(--t1);line-height:1.8;}
+
+.pending-box{background:var(--gold3);border-radius:var(--r-sm);padding:12px 14px;border-right:4px solid var(--gold);margin-top:10px;display:flex;align-items:center;gap:10px;}
+.pending-box p{font-size:12px;color:#7a5000;line-height:1.6;}
+
+/* ALERT */
+.alert{padding:10px 13px;border-radius:var(--r-sm);font-size:13px;margin-bottom:12px;display:none;}
+.alert.err{background:#fce4ec;color:#b71c1c;border:1px solid #f8bbd0;}
+.alert.ok{background:var(--sky2);color:var(--moe-d);border:1px solid var(--sky3);}
+.alert.show{display:block;}
+
+/* SEC TITLE */
+.sec-t{font-family:'Cairo',sans-serif;font-size:16px;font-weight:800;color:var(--t1);margin-bottom:14px;padding-bottom:9px;border-bottom:2px solid var(--sky);display:flex;align-items:center;gap:8px;}
+.sec-bar{width:3px;height:20px;background:linear-gradient(180deg,var(--moe-d),var(--moe-l));border-radius:3px;flex-shrink:0;}
+
+/* CHIPS */
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.chip{padding:5px 13px;border-radius:14px;font-size:12px;font-weight:600;cursor:pointer;border:2px solid var(--sky3);background:#fff;color:var(--t2);transition:all .18s;font-family:'Tajawal',sans-serif;}
+.chip.on{border-color:var(--moe);background:var(--moe);color:#fff;}
+
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:999;align-items:flex-end;justify-content:center;backdrop-filter:blur(5px);}
+.mo.on{display:flex;}
+.mo-box{background:#fff;border-radius:22px 22px 0 0;padding:26px 18px;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;animation:slUp .28s cubic-bezier(.34,1.56,.64,1);}
+@keyframes slUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.mo-t{font-family:'Cairo',sans-serif;font-size:17px;font-weight:800;color:var(--t1);margin-bottom:16px;}
+
+/* TOAST */
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-120px);background:var(--moe-dd);color:#fff;padding:12px 22px;border-radius:30px;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;box-shadow:0 8px 30px rgba(0,0,0,.3);z-index:9999;transition:transform .4s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* BELL NOTIFICATION */
+.bell-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.6);z-index:9998;
+  align-items:center;justify-content:center;
+  backdrop-filter:blur(6px);
+}
+.bell-overlay.show{display:flex;animation:fadeInBg .3s ease;}
+@keyframes fadeInBg{from{opacity:0;}to{opacity:1;}}
+
+.bell-box{
+  background:white;border-radius:24px;
+  padding:32px 28px;max-width:320px;width:90%;
+  text-align:center;
+  animation:bellPop .5s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  position:relative;overflow:hidden;
+}
+.bell-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--moe-dd),var(--moe),var(--gold2));
+}
+@keyframes bellPop{
+  from{transform:scale(.5) translateY(40px);opacity:0;}
+  to{transform:scale(1) translateY(0);opacity:1;}
+}
+.bell-icon-wrap{
+  width:90px;height:90px;border-radius:50%;margin:0 auto 16px;
+  display:flex;align-items:center;justify-content:center;font-size:44px;
+  animation:bellRing 0.4s ease infinite alternate;
+}
+.bell-icon-wrap.parent-bell{background:linear-gradient(135deg,#e0f7f4,#a8e8e2);}
+.bell-icon-wrap.teacher-bell{background:linear-gradient(135deg,var(--gold3),#ffe082);}
+@keyframes bellRing{
+  0%{transform:rotate(-18deg) scale(1.05);}
+  100%{transform:rotate(18deg) scale(1.1);}
+}
+.bell-title{font-family:'Cairo',sans-serif;font-size:18px;font-weight:900;color:var(--t1);margin-bottom:6px;}
+.bell-msg{font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:20px;}
+.bell-countdown{
+  font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;
+  color:var(--t3);margin-bottom:16px;
+}
+.bell-progress{
+  height:4px;background:var(--sky2);border-radius:10px;overflow:hidden;margin-bottom:16px;
+}
+.bell-prog-fill{
+  height:100%;border-radius:10px;
+  background:linear-gradient(90deg,var(--moe-d),var(--moe));
+  transition:width .1s linear;
+}
+.bell-close{
+  width:100%;padding:11px;border-radius:12px;
+  background:linear-gradient(135deg,var(--moe-d),var(--moe));
+  color:white;font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;
+  border:none;cursor:pointer;
+}
+
+/* EMPTY */
+.empty{text-align:center;padding:44px 16px;color:var(--t3);}
+.empty-i{font-size:48px;margin-bottom:10px;}
+.empty p{font-size:14px;}
+
+.info-box{background:var(--sky);border-right:4px solid var(--moe);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:14px;}
+.info-box p{font-size:13px;color:var(--moe-d);line-height:1.8;}
+.stag{display:inline-flex;align-items:center;gap:5px;background:var(--sky2);color:var(--moe-d);padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;margin-bottom:5px;}
+.act-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.mt-8{margin-top:8px;}.mt-14{margin-top:14px;}
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">🔔</div>
+
+<!-- BELL NOTIFICATION -->
+<div class="bell-overlay" id="bell-overlay">
+  <div class="bell-box">
+    <div class="bell-icon-wrap" id="bell-icon-wrap">🔔</div>
+    <div class="bell-title" id="bell-title">إشعار جديد</div>
+    <div class="bell-msg" id="bell-msg">—</div>
+    <div class="bell-countdown" id="bell-countdown">سيُغلق خلال 5 ثوانٍ</div>
+    <div class="bell-progress"><div class="bell-prog-fill" id="bell-prog" style="width:100%"></div></div>
+    <button class="bell-close" onclick="closeBell()">حسناً ✓</button>
+  </div>
+</div>
+
+<!-- LANDING -->
+<div id="sc-land" class="screen active">
+  <div class="land-dots"></div>
+  <div class="date-bar">
+    <div class="date-hijri" id="ld-h">—</div>
+    <div class="date-miladi" id="ld-m">—</div>
+    <div class="date-time" id="ld-t">--:--:--</div>
+  </div>
+  <div class="land-hero">
+    <div class="land-icon-wrap">📐</div>
+    <div class="land-title">تواصل مادة الرياضيات</div>
+    <div class="land-school">ابتدائية هشام بن عبد الملك — الخرج | الصف الثاني الابتدائي</div>
+    <div class="portal-card" onclick="go('sc-parent')" style="max-width:380px;">
+      <div class="pc-icon">👨‍👦</div>
+      <div class="pc-body">
+        <div class="pc-title">بوابة ولي الأمر</div>
+        <div class="pc-desc">تقديم الطلبات ومتابعة الردود</div>
+      </div>
+      <div class="pc-arrow">◀</div>
+    </div>
+  </div>
+  <div class="admin-btn-wrap">
+    <button class="admin-tiny" onclick="goLogin()">🛡️ دخول الإدارة</button>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="sc-login" class="screen">
+  <div class="hdr gold">
+    <div class="hdr-row">
+      <div class="hdr-school">ابتدائية هشام بن عبد الملك — الخرج</div>
+      <button class="hdr-back" onclick="go('sc-land')">رجوع</button>
+    </div>
+    <div class="hdr-title">🛡️ دخول الإدارة</div>
+    <div class="hdr-sub">محمد مشعل العنزي — معلم الرياضيات</div>
+  </div>
+  <div class="date-strip">
+    <div class="ds-hijri" id="lg-h">—</div>
+    <div class="ds-miladi" id="lg-m">—</div>
+    <div class="ds-time" id="lg-t">—</div>
+  </div>
+  <div class="content">
+    <div class="card mt-8">
+      <div style="font-size:52px;text-align:center;margin-bottom:12px;">🛡️</div>
+      <div style="text-align:center;font-family:'Cairo',sans-serif;font-size:17px;font-weight:800;margin-bottom:2px;">لوحة المعلم</div>
+      <div style="text-align:center;font-size:12px;color:var(--t3);margin-bottom:22px;">محمد مشعل العنزي</div>
+      <div class="alert err" id="login-err">❌ كلمة المرور غير صحيحة، الرقم الافتراضي: 9999</div>
+      <div class="fg">
+        <label class="fl">كلمة المرور</label>
+        <input type="password" class="fi" id="login-pw" placeholder="أدخل كلمة المرور" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+      <button class="btn btn-gold" onclick="doLogin()">🔓 دخول</button>
+      <div style="text-align:center;margin-top:12px;">
+        <button onclick="resetPW()" style="background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;text-decoration:underline;">إعادة تعيين كلمة المرور للافتراضية (9999)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARENT -->
+<div id="sc-parent" class="screen">
+  <div class="hdr teal">
+    <div class="hdr-row">
+      <div class="hdr-school">ابتدائية هشام بن عبد الملك — الخرج</div>
+      <button class="hdr-back" onclick="pBack()">رجوع</button>
+    </div>
+    <div class="hdr-title">👨‍👦 بوابة ولي الأمر</div>
+    <div class="hdr-sub">تواصل مادة الرياضيات — الصف الثاني الابتدائي</div>
+  </div>
+  <div class="date-strip">
+    <div class="ds-hijri" id="p-h">—</div>
+    <div class="ds-miladi" id="p-m">—</div>
+    <div class="ds-time" id="p-t">—</div>
+  </div>
+  <div class="content">
+    <div id="p-s1">
+      <div class="info-box mt-8">
+        <p>🔐 اختر اسمك من القائمة ثم أدخل الرقم السري المُرسَل لكم.</p>
+      </div>
+      <div class="card">
+        <div class="alert err" id="p-err">❌ الرقم السري غير صحيح، تأكد من الرقم المرسل لك</div>
+        <div class="fg">
+          <label class="fl">اسم الطالب</label>
+          <select class="fs" id="p-student"><option value="">— اختر اسمك من القائمة —</option></select>
+        </div>
+        <div class="fg">
+          <label class="fl">الرقم السري</label>
+          <input type="text" class="fi" id="p-hid" placeholder="أدخل الرقم السري المرسل لك" maxlength="10" onkeydown="if(event.key==='Enter')pLogin()">
+        </div>
+        <button class="btn btn-moe" onclick="pLogin()">دخول ◄</button>
+      </div>
+    </div>
+    <div id="p-s2" style="display:none;">
+      <div class="thank-banner" id="thank-banner">
+        <div class="tb-icon">🌟</div>
+        <div class="tb-text">
+          <h3>شكراً لتواصلك معنا!</h3>
+          <p>تم استلام طلبك وسيتم الرد عليه في أقرب وقت ممكن إن شاء الله.</p>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw-av" id="sw-av">👦</div>
+        <div style="flex:1;">
+          <div class="sw-name" id="sw-name">—</div>
+          <div class="sw-info" id="sw-info">—</div>
+          <div class="sw-hijri" id="sw-hijri">—</div>
+          <div class="sw-miladi" id="sw-miladi">—</div>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab on" onclick="pTab('my','pt-my')" id="pt-my">📋 طلباتي</button>
+        <button class="tab" onclick="pTab('new','pt-new')" id="pt-new">➕ طلب جديد</button>
+      </div>
+      <div id="p-tab-my"><div id="p-reqs"></div></div>
+      <div id="p-tab-new" style="display:none;">
+        <div class="card">
+          <div class="sec-t"><div class="sec-bar"></div>طلب جديد</div>
+          <div class="fg">
+            <label class="fl">نوع الاستفسار أو الطلب</label>
+            <select class="fs" id="svc-select" onchange="selSvcFromDrop(this.value)">
+              <option value="">— اختر نوع الطلب —</option>
+              <option value="level">📊 استفسار عن مستوى الطالب</option>
+              <option value="homework">📚 استفسار عن واجب</option>
+              <option value="reexam">🔄 طلب إعادة اختبار</option>
+              <option value="exam">📝 استفسار عن اختبار</option>
+              <option value="behavior">⚠️ مشاكل سلوكية</option>
+              <option value="study">🎯 مشاكل دراسية</option>
+              <option value="health">🏥 مشاكل صحية</option>
+              <option value="teacher">💬 ملاحظات على المعلم</option>
+              <option value="school">🏫 ملاحظات تتعلق بالمدرسة</option>
+              <option value="activity">🏆 الأنشطة والمشاركات الطلابية</option>
+              <option value="other">✏️ خدمات أخرى</option>
+            </select>
+          </div>
+          <!-- مؤشر الخدمة المختارة -->
+          <div id="svc-indicator" style="display:none;background:var(--sky2);border-radius:10px;
+            padding:10px 14px;margin-bottom:14px;display:none;align-items:center;gap:10px;">
+            <div id="svc-ind-icon" style="font-size:24px;"></div>
+            <div>
+              <div id="svc-ind-name" style="font-family:'Cairo',sans-serif;font-size:14px;font-weight:700;color:var(--moe-d);"></div>
+              <div style="font-size:11px;color:var(--t3);">تم اختيار هذا النوع</div>
+            </div>
+            <div style="margin-right:auto;color:var(--moe);font-size:18px;">✓</div>
+          </div>
+          <div class="fg">
+            <label class="fl">تفاصيل الطلب</label>
+            <textarea class="fta" id="p-msg" placeholder="اكتب تفاصيلك هنا بوضوح..."></textarea>
+          </div>
+          <div class="alert ok" id="p-ok">✅ تم إرسال طلبك بنجاح</div>
+          <button class="btn btn-moe" onclick="submitReq()">📤 إرسال الطلب</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="sc-admin" class="screen">
+  <div class="hdr gold">
+    <div class="hdr-row">
+      <div class="hdr-school">ابتدائية هشام بن عبد الملك — الخرج</div>
+      <button class="hdr-back" onclick="go('sc-land')">خروج</button>
+    </div>
+    <div class="hdr-title">🛡️ لوحة معلم الرياضيات</div>
+    <div class="hdr-sub">محمد مشعل العنزي</div>
+  </div>
+  <div class="date-strip">
+    <div class="ds-hijri" id="ad-h">—</div>
+    <div class="ds-miladi" id="ad-m">—</div>
+    <div class="ds-time" id="ad-t">—</div>
+  </div>
+  <div class="content">
+    <div class="stats" id="adm-stats"></div>
+    <div class="tabs">
+      <button class="tab on" onclick="aTab('all','at-all')" id="at-all">📋 الكل</button>
+      <button class="tab" onclick="aTab('pending','at-p')" id="at-p">⏳ جديدة</button>
+      <button class="tab" onclick="aTab('done','at-d')" id="at-d">✅ مُجابة</button>
+      <button class="tab" onclick="aTab('settings','at-s')" id="at-s">⚙️</button>
+    </div>
+    <!-- فلتر الصف -->
+    <div id="cls-filter-row" style="display:flex;gap:8px;margin-bottom:14px;">
+      <button class="chip on" onclick="aClsFilter('all','cf-all')" id="cf-all">📋 الكل</button>
+      <button class="chip" onclick="aClsFilter('2-1','cf-21')" id="cf-21">الثاني/١</button>
+      <button class="chip" onclick="aClsFilter('2-2','cf-22')" id="cf-22">الثاني/٢</button>
+    </div>
+    <div id="adm-list"></div>
+    <div id="adm-sets" style="display:none;">
+      <!-- كلمة مرور المعلم -->
+      <div class="card">
+        <div class="sec-t"><div class="sec-bar"></div>🔐 كلمة مرور الإدارة</div>
+        <div class="fg"><label class="fl">كلمة مرور جديدة للمعلم</label>
+          <input type="text" class="fi" id="pw-v" placeholder="اكتب كلمة المرور الجديدة">
+        </div>
+        <div class="alert ok" id="pw-ok">✅ تم حفظ كلمة المرور</div>
+        <button class="btn btn-gold" onclick="savePW()">💾 حفظ كلمة مرور المعلم</button>
+      </div>
+      <!-- تغيير الأرقام السرية لأولياء الأمور -->
+      <div class="card mt-14">
+        <div class="sec-t"><div class="sec-bar"></div>🔑 تغيير الرقم السري لولي الأمر</div>
+        <div style="background:var(--sky);border-radius:10px;padding:12px 14px;margin-bottom:14px;">
+          <p style="font-size:12px;color:var(--moe-d);line-height:1.7;">اختر الطالب من القائمة وأدخل الرقم السري الجديد له.</p>
+        </div>
+        <div class="fg">
+          <label class="fl">اختر الطالب</label>
+          <select class="fs" id="pin-student-select">
+            <option value="">— اختر الطالب —</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl">الرقم السري الجديد</label>
+          <input type="text" class="fi" id="pin-new" placeholder="مثال: A123456" maxlength="10">
+        </div>
+        <div class="alert ok" id="pin-ok">✅ تم تغيير الرقم السري بنجاح</div>
+        <div class="alert err" id="pin-err">❌ اختر الطالب وأدخل الرقم السري</div>
+        <button class="btn btn-moe" onclick="changeParentPin()">🔄 تغيير الرقم السري</button>
+      </div>
+      <!-- قائمة الطلاب مع أرقامهم -->
+      <div class="card mt-14">
+        <div class="sec-t"><div class="sec-bar"></div>👦 قائمة الطلاب وأرقامهم السرية</div>
+        <div style="display:flex;gap:7px;margin-bottom:10px;">
+          <button class="chip on" onclick="filterStList('all','sl-all')" id="sl-all">الكل</button>
+          <button class="chip" onclick="filterStList('2-1','sl-21')" id="sl-21">الثاني/١</button>
+          <button class="chip" onclick="filterStList('2-2','sl-22')" id="sl-22">الثاني/٢</button>
+        </div>
+        <div id="st-list"></div>
+      </div>
+      <div class="card mt-14">
+        <button class="btn" style="background:#fce4ec;color:#b71c1c;" onclick="clearAll()">🗑️ حذف جميع الطلبات</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REPLY MODAL -->
+<div class="mo" id="mo-reply">
+  <div class="mo-box">
+    <div class="mo-t">✍️ الرد على الطلب</div>
+    <div class="fg"><label class="fl">الرد</label><textarea class="fta" id="mo-txt" placeholder="اكتب ردك هنا..."></textarea></div>
+    <div style="display:flex;gap:9px;">
+      <button class="btn btn-moe" onclick="doReply()" style="flex:1;">✅ إرسال الرد</button>
+      <button class="btn btn-ghost" onclick="closeMo()" style="flex:1;">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══ STUDENTS ══
+const CLASS_21=['أحمد أنور يسن الجاك','الياس عبدالله محمد قيسي','بدر عبدالعزيز سعيد العمري','بلال طارق حمدي البصيري','بندر نواف خالد هوساوي','تركي ثامر عتيق بن عتيق','سعد بدر سعد العتيبي','سعد محمد سعد الدوسري','سعود فهد هادي الدوسري','سعود نايف بن حسن الهندي','سعيد راشد سعيد الشهراني','سلمان سعد سالم العتيبي','سلمان مجاهد سعد الراجح','طارق زياد بن محمد الدوسري','عبدالاله فهد عبدالله العنبر','عبدالرحمن محمد بن مجول المطيري','عبدالعزيز عبدالله عبدالعزيز الحسين','عبدالعزيز عبدالله محمد علوي','عبدالعزيز محمد بن مجول المطيري','عبدالكريم عبدالرحمن بن عبدالله قيسي','عزام حسن عبدالله زغبي','علي ابراهيم خالد الخرجي','عمر عبدالله حمد التميمي','عمر محمد مبيريك المزيني','فزاع جمعان رجاء الدوسري','محمد حكمت محمود القدور','محمد خالد بن يوسف الدوسري','محمد خلف بن مبارك آل بريك','محمد سطام بن محمد التميمي','محمد عبدالحكيم محيميد العتيبي','محمد عبدالله محمد علوي','محمد علي أحمد المهري','مهند صالح حمد الهلال','نايف وليد بدر المطيري','وسام احمد محمد بحران','يحيى مريع عمر مريع','براء أحمد القاضي'];
+
+// ══ STORAGE — بدون تعارض مع نسخ قديمة ══
+const KEY_PW='moe_pw_v6', KEY_ST='moe_sts_v6', KEY_RQ='moe_reqs_v6';
+const G=k=>{try{return JSON.parse(localStorage.getItem(k));}catch{return null;}};
+const S=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const getPW=()=>G(KEY_PW)||'9999';
+const getStudents=()=>G(KEY_ST)||buildStudents();
+const getReqs=()=>G(KEY_RQ)||[];
+const saveReqs=v=>S(KEY_RQ,v);
+
+function buildStudents(){
+  const list=[
+    {name:'أحمد أنور يسن الجاك',id:'A104332',cls:'2-1',photo:''},
+    {name:'الياس عبدالله محمد قيسي',id:'A181960',cls:'2-1',photo:''},
+    {name:'بدر عبدالعزيز سعيد العمري',id:'B013389',cls:'2-1',photo:''},
+    {name:'بلال طارق حمدي البصيري',id:'B083863',cls:'2-1',photo:''},
+    {name:'بندر نواف خالد هوساوي',id:'B794026',cls:'2-1',photo:''},
+    {name:'تركي ثامر عتيق بن عتيق',id:'T542351',cls:'2-1',photo:''},
+    {name:'سعد بدر سعد العتيبي',id:'S161559',cls:'2-1',photo:''},
+    {name:'سعد محمد سعد الدوسري',id:'S407816',cls:'2-1',photo:''},
+    {name:'سعود فهد هادي الدوسري',id:'S184959',cls:'2-1',photo:''},
+    {name:'سعود نايف بن حسن الهندي',id:'S310341',cls:'2-1',photo:''},
+    {name:'سعيد راشد سعيد الشهراني',id:'S316475',cls:'2-1',photo:''},
+    {name:'سلمان سعد سالم العتيبي',id:'S255341',cls:'2-1',photo:''},
+    {name:'سلمان مجاهد سعد الراجح',id:'S928327',cls:'2-1',photo:''},
+    {name:'طارق زياد بن محمد الدوسري',id:'T648350',cls:'2-1',photo:''},
+    {name:'عبدالاله فهد عبدالله العنبر',id:'A305641',cls:'2-1',photo:''},
+    {name:'عبدالرحمن محمد بن مجول المطيري',id:'A395376',cls:'2-1',photo:''},
+    {name:'عبدالعزيز عبدالله عبدالعزيز الحسين',id:'A724238',cls:'2-1',photo:''},
+    {name:'عبدالعزيز عبدالله محمد علوي',id:'A849696',cls:'2-1',photo:''},
+    {name:'عبدالعزيز محمد بن مجول المطيري',id:'A532871',cls:'2-1',photo:''},
+    {name:'عبدالكريم عبدالرحمن بن عبدالله قيسي',id:'A012269',cls:'2-1',photo:''},
+    {name:'عزام حسن عبدالله زغبي',id:'A166978',cls:'2-1',photo:''},
+    {name:'علي ابراهيم خالد الخرجي',id:'A480184',cls:'2-1',photo:''},
+    {name:'عمر عبدالله حمد التميمي',id:'A514627',cls:'2-1',photo:''},
+    {name:'عمر محمد مبيريك المزيني',id:'A048281',cls:'2-1',photo:''},
+    {name:'فزاع جمعان رجاء الدوسري',id:'F489325',cls:'2-1',photo:''},
+    {name:'محمد حكمت محمود القدور',id:'M288095',cls:'2-1',photo:''},
+    {name:'محمد خالد بن يوسف الدوسري',id:'M701543',cls:'2-1',photo:''},
+    {name:'محمد خلف بن مبارك آل بريك',id:'M039117',cls:'2-1',photo:''},
+    {name:'محمد سطام بن محمد التميمي',id:'M182278',cls:'2-1',photo:''},
+    {name:'محمد عبدالحكيم محيميد العتيبي',id:'M248963',cls:'2-1',photo:''},
+    {name:'محمد عبدالله محمد علوي',id:'M834657',cls:'2-1',photo:''},
+    {name:'محمد علي أحمد المهري',id:'M871331',cls:'2-1',photo:''},
+    {name:'مهند صالح حمد الهلال',id:'M509839',cls:'2-1',photo:''},
+    {name:'نايف وليد بدر المطيري',id:'N301031',cls:'2-1',photo:''},
+    {name:'وسام احمد محمد بحران',id:'W051834',cls:'2-1',photo:''},
+    {name:'يحيى مريع عمر مريع',id:'Y738299',cls:'2-1',photo:''},
+    {name:'براء أحمد القاضي',id:'B737631',cls:'2-1',photo:''},
+    // ══ الصف الثاني / ٢ — أرسل الأسماء لإضافتها ══
+    {name:'طالب ١ — الثاني/٢',id:'X200001',cls:'2-2',photo:''},
+    {name:'طالب ٢ — الثاني/٢',id:'X200002',cls:'2-2',photo:''},
+    {name:'طالب ٣ — الثاني/٢',id:'X200003',cls:'2-2',photo:''},
+  ];
+  S(KEY_ST,list);return list;
+}
+
+// تغيير الرقم السري لولي الأمر
+function changeParentPin(){
+  const sel=document.getElementById('pin-student-select').value;
+  const pin=document.getElementById('pin-new').value.trim();
+  const okEl=document.getElementById('pin-ok');
+  const errEl=document.getElementById('pin-err');
+  okEl.classList.remove('show');errEl.classList.remove('show');
+  if(!sel||!pin){errEl.classList.add('show');return;}
+  const students=getStudents();
+  const idx=students.findIndex(s=>s.id===sel);
+  if(idx===-1){errEl.classList.add('show');return;}
+  students[idx].id=pin;
+  S(KEY_ST,students);
+  document.getElementById('pin-new').value='';
+  document.getElementById('pin-student-select').value='';
+  okEl.classList.add('show');
+  setTimeout(()=>okEl.classList.remove('show'),2500);
+  renderStList();populateDropdown();populatePinDropdown();
+}
+
+// فلتر قائمة الطلاب
+let stListFilter='all';
+function filterStList(cls,btnId){
+  stListFilter=cls;
+  ['sl-all','sl-21','sl-22'].forEach(k=>{const el=document.getElementById(k);if(el)el.classList.remove('on');});
+  document.getElementById(btnId).classList.add('on');
+  renderStList();
+}
+
+// فلتر الصف في الطلبات
+let admClsFilter='all';
+function aClsFilter(cls,btnId){
+  admClsFilter=cls;
+  ['cf-all','cf-21','cf-22'].forEach(k=>document.getElementById(k).classList.remove('on'));
+  document.getElementById(btnId).classList.add('on');
+  renderAdmList();
+}
+
+function populatePinDropdown(){
+  const sel=document.getElementById('pin-student-select');
+  if(!sel)return;
+  while(sel.options.length>1)sel.remove(1);
+  [...getStudents()].sort((a,b)=>a.cls.localeCompare(b.cls)||a.name.localeCompare(b.name,'ar')).forEach(s=>{
+    const opt=document.createElement('option');
+    opt.value=s.id;
+    opt.textContent=s.name+' ('+s.cls+') — الرقم: '+s.id;
+    sel.appendChild(opt);
+  });
+}
+
+function resetPW(){
+  S(KEY_PW,'9999');
+  showToast('✅ تم إعادة تعيين كلمة المرور إلى 9999');
+  document.getElementById('login-err').classList.remove('show');
+}
+
+// ══ HIJRI ══
+function toHijri(date){
+  const d=date.getDate(),m=date.getMonth()+1,y=date.getFullYear();
+  let jd=Math.floor((14+12*m-7)/12);
+  let jdn=d+Math.floor((153*(m+12*jd-3)+2)/5)+365*(y+4800-jd)+Math.floor((y+4800-jd)/4)-Math.floor((y+4800-jd)/100)+Math.floor((y+4800-jd)/400)-32045;
+  let l=jdn-1948440+10632,n=Math.floor((l-1)/10631);
+  l=l-10631*n+354;
+  let j=Math.floor((10985-l)/5316)*Math.floor((50*l)/17719)+Math.floor(l/5670)*Math.floor((43*l)/15238);
+  l=l-Math.floor((30-j)/15)*Math.floor((17719*j)/50)-Math.floor(j/16)*Math.floor((15238*j)/43)+29;
+  let hm=Math.floor((24*l)/709),hd=l-Math.floor((709*hm)/24),hy=30*n+j-30;
+  const months=['محرم','صفر','ربيع الأول','ربيع الثاني','جمادى الأولى','جمادى الآخرة','رجب','شعبان','رمضان','شوال','ذو القعدة','ذو الحجة'];
+  return `${hd} ${months[hm-1]} ${hy}هـ`;
+}
+function toMiladi(d){return d.toLocaleDateString('ar-SA-u-nu-latn',{weekday:'long',year:'numeric',month:'long',day:'numeric'});}
+function toTime(d){const p=x=>String(x).padStart(2,'0');return p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());}
+
+function updateClock(){
+  const now=new Date(),h=toHijri(now),m=toMiladi(now),t=toTime(now);
+  [['ld-h','ld-m','ld-t'],['lg-h','lg-m','lg-t'],['p-h','p-m','p-t'],['ad-h','ad-m','ad-t']].forEach(([hi,mi,ti])=>{
+    const eh=document.getElementById(hi),em=document.getElementById(mi),et=document.getElementById(ti);
+    if(eh)eh.textContent=h;if(em)em.textContent=m;if(et)et.textContent=t;
+  });
+}
+setInterval(updateClock,1000);updateClock();
+function nowDT(){const n=new Date();return{hijri:toHijri(n),miladi:toMiladi(n),time:toTime(n)};}
+
+// ══ SOUNDS ══
+let audioCtx=null;
+function getAC(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}return audioCtx;}
+
+function playBellSound(type){
+  const ctx=getAC();if(!ctx)return;const now=ctx.currentTime;
+  if(type==='teacher'){
+    // نغمة المعلم: 3 نبضات رسمية تصاعدية
+    [0,.3,.6].forEach((d,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=440+i*130;o.type='sine';
+      g.gain.setValueAtTime(0,now+d);
+      g.gain.linearRampToValueAtTime(.5,now+d+.06);
+      g.gain.exponentialRampToValueAtTime(.001,now+d+.5);
+      o.start(now+d);o.stop(now+d+.6);
+    });
+  } else {
+    // نغمة ولي الأمر: رنين دافئ تصاعدي
+    const freqs=[523,659,784,1047];
+    freqs.forEach((f,i)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.frequency.value=f;o.type='sine';
+      const t=now+i*.22;
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(.4,t+.07);
+      g.gain.exponentialRampToValueAtTime(.001,t+.55);
+      o.start(t);o.stop(t+.6);
+    });
+  }
+}
+
+// ══ BELL NOTIFICATION (5 seconds) ══
+let bellTimer=null, bellInterval=null;
+
+function showBell(type, title, msg){
+  // أوقف أي جرس سابق
+  if(bellTimer) clearTimeout(bellTimer);
+  if(bellInterval) clearInterval(bellInterval);
+
+  const overlay=document.getElementById('bell-overlay');
+  const iconWrap=document.getElementById('bell-icon-wrap');
+  const bellTitle=document.getElementById('bell-title');
+  const bellMsg=document.getElementById('bell-msg');
+  const countdown=document.getElementById('bell-countdown');
+  const prog=document.getElementById('bell-prog');
+
+  // تعيين المحتوى
+  iconWrap.className='bell-icon-wrap '+(type==='teacher'?'teacher-bell':'parent-bell');
+  iconWrap.textContent=type==='teacher'?'🔔':'📨';
+  bellTitle.textContent=title;
+  bellMsg.textContent=msg;
+
+  // تشغيل الصوت
+  playBellSound(type);
+
+  // إظهار الجرس
+  overlay.classList.add('show');
+
+  // عداد تنازلي 5 ثوانٍ
+  let remaining=5;
+  prog.style.width='100%';
+  countdown.textContent='سيُغلق خلال '+remaining+' ثوانٍ';
+
+  bellInterval=setInterval(()=>{
+    remaining--;
+    const pct=(remaining/5)*100;
+    prog.style.width=pct+'%';
+    countdown.textContent=remaining>0?'سيُغلق خلال '+remaining+' ثوانٍ':'جارٍ الإغلاق...';
+    if(remaining<=0){
+      clearInterval(bellInterval);
+    }
+  },1000);
+
+  bellTimer=setTimeout(()=>closeBell(),5000);
+}
+
+function closeBell(){
+  if(bellTimer) clearTimeout(bellTimer);
+  if(bellInterval) clearInterval(bellInterval);
+  document.getElementById('bell-overlay').classList.remove('show');
+}
+
+// ══ TOAST (بسيط للإشعارات الصغيرة) ══
+function showToast(msg,dur=3000){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),dur);
+}
+
+// ══ SERVICE DROPDOWN ══
+const SVC_MAP={
+  level:   {icon:'📊',name:'استفسار عن مستوى الطالب'},
+  homework:{icon:'📚',name:'استفسار عن واجب'},
+  reexam:  {icon:'🔄',name:'طلب إعادة اختبار'},
+  exam:    {icon:'📝',name:'استفسار عن اختبار'},
+  behavior:{icon:'⚠️',name:'مشاكل سلوكية'},
+  study:   {icon:'🎯',name:'مشاكل دراسية'},
+  health:  {icon:'🏥',name:'مشاكل صحية'},
+  teacher: {icon:'💬',name:'ملاحظات على المعلم'},
+  school:  {icon:'🏫',name:'ملاحظات تتعلق بالمدرسة'},
+  activity:{icon:'🏆',name:'الأنشطة والمشاركات الطلابية'},
+  other:   {icon:'✏️',name:'خدمات أخرى'},
+};
+
+function selSvcFromDrop(val){
+  selSvcVal = val || null;
+  const ind = document.getElementById('svc-indicator');
+  if(!val){ind.style.display='none';return;}
+  const cfg = SVC_MAP[val]||{icon:'✏️',name:val};
+  document.getElementById('svc-ind-icon').textContent=cfg.icon;
+  document.getElementById('svc-ind-name').textContent=cfg.name;
+  ind.style.display='flex';
+}
+
+// ══ NAV ══
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+  if(id==='sc-admin')renderAdmin();
+}
+
+function goLogin(){
+  document.getElementById('login-pw').value='';
+  document.getElementById('login-err').classList.remove('show');
+  go('sc-login');
+}
+
+function doLogin(){
+  const entered=document.getElementById('login-pw').value;
+  const pw=getPW();
+  if(entered===pw){
+    go('sc-admin');
+    const pending=getReqs().filter(r=>r.status==='pending').length;
+    if(pending>0){setTimeout(()=>{showBell('teacher','🔔 طلبات جديدة!','لديك '+pending+' طلب'+(pending===1?'':'ات')+' جديدة من أولياء الأمور تنتظر ردك.');},600);}
+  }else{
+    document.getElementById('login-err').classList.add('show');
+  }
+}
+
+// ══ DROPDOWN ══
+function populateDropdown(){
+  const sel=document.getElementById('p-student');
+  while(sel.options.length>1)sel.remove(1);
+  [...getStudents()].sort((a,b)=>a.name.localeCompare(b.name,'ar')).forEach(s=>{
+    const opt=document.createElement('option');opt.value=s.id;opt.textContent=s.name;sel.appendChild(opt);
+  });
+}
+
+// ══ PARENT ══
+let parent=null,selSvcVal=null,replyTgt=null,aFilterStatus='all';
+
+function pLogin(){
+  const sid=document.getElementById('p-student').value;
+  const hid=document.getElementById('p-hid').value.trim();
+  if(!sid||hid.length<5){document.getElementById('p-err').classList.add('show');return;}
+  const found=getStudents().find(s=>s.id===sid);
+  if(!found||found.id!==hid){document.getElementById('p-err').classList.add('show');return;}
+  document.getElementById('p-err').classList.remove('show');
+  parent=found;
+  const dt=nowDT();
+  document.getElementById('sw-name').textContent='👦 '+parent.name;
+  document.getElementById('sw-info').textContent='الصف: '+parent.cls;
+  document.getElementById('sw-hijri').textContent=dt.hijri;
+  document.getElementById('sw-miladi').textContent=dt.miladi;
+  document.getElementById('sw-av').innerHTML='👦';
+  document.getElementById('p-s1').style.display='none';
+  document.getElementById('p-s2').style.display='block';
+  const hasReply=getReqs().filter(r=>r.studentId===parent.id&&r.status==='done'&&r.reply).length>0;
+  if(hasReply){setTimeout(()=>{showBell('parent','📨 رد جديد من المعلم!','لديك رد من معلم الرياضيات محمد مشعل العنزي على أحد طلباتك.');},600);}
+  renderPReqs();
+}
+
+function pBack(){
+  if(document.getElementById('p-s2').style.display!=='none'){
+    document.getElementById('p-s2').style.display='none';
+    document.getElementById('p-s1').style.display='block';
+    document.getElementById('thank-banner').classList.remove('show');
+    parent=null;selSvcVal=null;
+  }else go('sc-land');
+}
+
+function pTab(tab,btnId){
+  document.querySelectorAll('#sc-parent .tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(btnId).classList.add('on');
+  document.getElementById('p-tab-my').style.display=tab==='my'?'block':'none';
+  document.getElementById('p-tab-new').style.display=tab==='new'?'block':'none';
+  if(tab==='my')renderPReqs();
+}
+
+function selSvc(val,el){
+  selSvcVal=val;
+  document.querySelectorAll('.svc').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function submitReq(){
+  const msg=document.getElementById('p-msg').value.trim();
+  if(!msg||!selSvcVal){alert('يرجى اختيار نوع الطلب وكتابة التفاصيل');return;}
+  const reqs=getReqs(),dt=nowDT();
+  reqs.push({id:Date.now(),studentName:parent.name,studentId:parent.id,studentClass:parent.cls,type:selSvcVal,msg,status:'pending',reply:'',replyTime:'',hijri:dt.hijri,miladi:dt.miladi,time:dt.time});
+  saveReqs(reqs);
+  document.getElementById('p-msg').value='';
+  selSvcVal=null;
+  document.getElementById('svc-select').value='';
+  document.getElementById('svc-indicator').style.display='none';
+  document.getElementById('thank-banner').classList.add('show');
+  setTimeout(()=>document.getElementById('thank-banner').classList.remove('show'),6000);
+  showBell('parent','🌟 تم إرسال طلبك!','شكراً لتواصلك. تم إرسال طلبك إلى معلم الرياضيات وسيتم الرد عليه في أقرب وقت إن شاء الله.');
+  const ok=document.getElementById('p-ok');ok.classList.add('show');
+  setTimeout(()=>{ok.classList.remove('show');pTab('my','pt-my');},2000);
+}
+
+function bigStatusIcon(status){
+  const cfg={
+    pending:{icon:'📤',cls:'s-pending',label:'تم إرسال طلبكم',sub:'طلبك وصل إلى المعلم وسيتم مراجعته قريباً'},
+    review: {icon:'🔍',cls:'s-review', label:'طلبكم قيد الدراسة',sub:'المعلم يراجع طلبك الآن'},
+    done:   {icon:'✅',cls:'s-done',   label:'تم الرد على الطلب',sub:'يمكنك قراءة رد المعلم أدناه'}
+  };
+  const c=cfg[status]||cfg.pending;
+  const steps=[
+    {l:'إرسال الطلب', done:true},
+    {l:'قيد الدراسة', done:status==='review'||status==='done'},
+    {l:'تم الرد',     done:status==='done'}
+  ];
+  const stepHtml=steps.map((s,i)=>{
+    const isAct=(i===1&&status==='review')||(i===0&&status==='pending');
+    const cls=s.done?'done-step':isAct?'act-step':'';
+    return `<div class="prog-step ${cls}">${s.l}</div>`;
+  }).join('');
+  return `
+    <div class="status-icon-wrap">
+      <div class="status-big-icon ${c.cls}">${c.icon}</div>
+      <div class="status-big-label ${c.cls}">${c.label}</div>
+      <div class="status-big-sub">${c.sub}</div>
+      <div class="prog-bar-wrap">
+        <div class="prog-bar-track"><div class="prog-bar-fill ${c.cls}"></div></div>
+        <div class="prog-steps">${stepHtml}</div>
+      </div>
+    </div>`;
+}
+
+function renderPReqs(){
+  const reqs=getReqs().filter(r=>r.studentId===parent.id);
+  const el=document.getElementById('p-reqs');
+  if(!reqs.length){
+    el.innerHTML=`<div class="empty"><div class="empty-i">📭</div><p>لا توجد طلبات بعد<br><span style="font-size:12px;color:var(--t3);">اضغط ＋ طلب جديد للبدء</span></p></div>`;
+    return;
+  }
+  const sorted=[...reqs].reverse();
+  // Summary
+  const pend=sorted.filter(r=>r.status==='pending').length;
+  const rev=sorted.filter(r=>r.status==='review').length;
+  const done=sorted.filter(r=>r.status==='done').length;
+  const summary=`
+    <div style="background:white;border-radius:12px;padding:12px 14px;margin-bottom:10px;
+      box-shadow:var(--sh);border:1px solid rgba(0,166,147,.1);
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+      <div style="font-family:'Cairo',sans-serif;font-size:13px;font-weight:800;color:var(--moe-d);">📋 طلباتي (${sorted.length})</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${pend?`<span style="background:#fff3e0;color:#e67e22;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;">⏳ ${pend}</span>`:''}
+        ${rev?`<span style="background:#e3f2fd;color:#1565c0;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;">🔍 ${rev}</span>`:''}
+        ${done?`<span style="background:var(--sky2);color:var(--moe-d);padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;">✅ ${done}</span>`:''}
+      </div>
+    </div>`;
+
+  const accordion=`
+    <div style="border-radius:14px;overflow:hidden;box-shadow:var(--sh);border:1px solid rgba(0,166,147,.10);">
+      ${sorted.map((r,idx)=>{
+        const isFirst=idx===0;
+        const statusColor={pending:'#e67e22',review:'#1565c0',done:'var(--moe-d)'}[r.status]||'#666';
+        const statusBg={pending:'#fff3e0',review:'#e3f2fd',done:'var(--sky2)'}[r.status]||'#eee';
+        const statusIco={pending:'📤',review:'🔍',done:'✅'}[r.status]||'📋';
+        const borderTop=idx>0?'border-top:1px solid var(--sky2);':'';
+        return `
+          <div style="${borderTop}">
+            <!-- HEADER ROW — قابل للضغط -->
+            <div onclick="togglePRow('pr-${r.id}','parrow-${r.id}')"
+              style="padding:13px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;
+                background:${idx%2===0?'#fff':'#f8fdfb'};transition:background .15s;"
+              onmouseenter="this.style.background='var(--sky)'" onmouseleave="this.style.background='${idx%2===0?'#fff':'#f8fdfb'}'">
+              <!-- رقم -->
+              <div style="width:30px;height:30px;border-radius:50%;background:var(--sky2);
+                display:flex;align-items:center;justify-content:center;flex-shrink:0;
+                font-family:'Cairo',sans-serif;font-size:12px;font-weight:800;color:var(--moe-d);">
+                ${sorted.length-idx}
+              </div>
+              <!-- تفاصيل مختصرة -->
+              <div style="flex:1;min-width:0;">
+                <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;">
+                  <span class="tt ${ttC(r.type)}" style="margin-bottom:0;font-size:10px;">${ttN(r.type)}</span>
+                </div>
+                <div style="font-size:10px;color:var(--t3);">📅 ${r.hijri||'—'} — ${r.time||''}</div>
+              </div>
+              <!-- حالة -->
+              <div style="background:${statusBg};color:${statusColor};
+                padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700;
+                white-space:nowrap;flex-shrink:0;">
+                ${statusIco}
+              </div>
+              <!-- سهم -->
+              <div id="parrow-${r.id}" style="color:var(--t3);font-size:12px;flex-shrink:0;
+                transition:transform .25s;">${isFirst?'▲':'▼'}</div>
+            </div>
+
+            <!-- BODY — قابل للطي -->
+            <div id="pr-${r.id}" style="display:${isFirst?'block':'none'};
+              background:var(--sky);border-top:1px dashed var(--sky3);">
+              <!-- أيقونة الحالة الكبيرة المتحركة -->
+              ${bigStatusIcon(r.status)}
+              <!-- نص الطلب -->
+              <div style="padding:0 14px 14px;">
+                <div style="background:white;border-radius:10px;padding:12px 14px;
+                  font-size:13px;color:var(--t2);line-height:1.8;
+                  border-right:3px solid var(--moe-l);margin-bottom:10px;">
+                  <div style="font-size:10px;font-weight:700;color:var(--t3);margin-bottom:6px;">💬 تفاصيل طلبك:</div>
+                  ${r.msg}
+                </div>
+                <!-- رد المعلم -->
+                ${r.reply
+                  ?`<div class="reply-box">
+                      <div class="reply-header">
+                        <div class="reply-avatar">📐</div>
+                        <div>
+                          <div class="reply-from">معلم الرياضيات — محمد مشعل العنزي</div>
+                          <div class="reply-when">${r.replyTime||''}</div>
+                        </div>
+                      </div>
+                      <p class="reply-text">${r.reply}</p>
+                    </div>`
+                  :`<div class="pending-box">
+                      <span style="font-size:20px;">⏳</span>
+                      <p>سيظهر رد المعلم هنا فور الرد على طلبك.</p>
+                    </div>`
+                }
+              </div>
+            </div>
+          </div>`;
+      }).join('')}
+    </div>`;
+
+  el.innerHTML=summary+accordion;
+}
+
+function togglePRow(id, arrowId){
+  const el=document.getElementById(id);
+  const arrow=document.getElementById(arrowId);
+  if(!el)return;
+  const isOpen=el.style.display!=='none';
+  el.style.display=isOpen?'none':'block';
+  if(arrow)arrow.style.transform=isOpen?'rotate(0deg)':'rotate(180deg)';
+  arrow.textContent=isOpen?'▼':'▲';
+}
+
+// ══ ADMIN ══
+function renderAdmin(){
+  const all=getReqs();
+  document.getElementById('pw-v').value=getPW();
+  const c1=all.filter(r=>r.studentClass==='2-1').length;
+  const c2=all.filter(r=>r.studentClass==='2-2').length;
+  document.getElementById('adm-stats').innerHTML=`
+    <div class="stat"><div class="stat-n">${all.length}</div><div class="stat-l">إجمالي الطلبات</div></div>
+    <div class="stat"><div class="stat-n" style="color:#e67e22">${all.filter(r=>r.status==='pending').length}</div><div class="stat-l">تنتظر الرد</div></div>
+    <div class="stat"><div class="stat-n" style="color:#1565c0">${c1}</div><div class="stat-l">الثاني/١</div></div>
+    <div class="stat"><div class="stat-n" style="color:var(--moe-d)">${c2}</div><div class="stat-l">الثاني/٢</div></div>
+  `;
+  renderAdmList();renderStList();populatePinDropdown();
+}
+
+function aTab(tab,btnId){
+  document.querySelectorAll('#sc-admin .tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(btnId).classList.add('on');
+  const isS=tab==='settings';
+  document.getElementById('adm-list').style.display=isS?'none':'block';
+  document.getElementById('cls-filter-row').style.display=isS?'none':'flex';
+  document.getElementById('adm-sets').style.display=isS?'block':'none';
+  if(!isS){aFilterStatus=tab;renderAdmList();}
+}
+
+function renderAdmList(){
+  let reqs=getReqs();
+  if(aFilterStatus==='pending')reqs=reqs.filter(r=>r.status==='pending'||r.status==='review');
+  else if(aFilterStatus==='done')reqs=reqs.filter(r=>r.status==='done');
+  if(admClsFilter!=='all')reqs=reqs.filter(r=>r.studentClass===admClsFilter);
+  const el=document.getElementById('adm-list');
+  if(!reqs.length){el.innerHTML=emptyH('لا توجد طلبات');return;}
+
+  const sorted=[...reqs].reverse();
+  const total=sorted.length;
+  const pending=sorted.filter(r=>r.status==='pending').length;
+  const review=sorted.filter(r=>r.status==='review').length;
+  const done=sorted.filter(r=>r.status==='done').length;
+
+  // Summary bar
+  const summary=`
+    <div style="background:white;border-radius:12px;padding:12px 14px;margin-bottom:12px;
+      box-shadow:0 2px 10px rgba(0,100,88,.08);border:1px solid rgba(0,166,147,.1);
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <div style="font-family:'Cairo',sans-serif;font-size:13px;font-weight:800;color:var(--moe-d);">
+        📋 سجل الطلبات — إجمالي: ${total}
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span style="background:#fff3e0;color:#e67e22;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;border:1px solid #ffe0b2;">⏳ ${pending} انتظار</span>
+        <span style="background:#e3f2fd;color:#1565c0;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;border:1px solid #bbdefb;">🔍 ${review} دراسة</span>
+        <span style="background:var(--sky2);color:var(--moe-d);padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;border:1px solid var(--sky3);">✅ ${done} مُجاب</span>
+      </div>
+    </div>`;
+
+  // Table register
+  const tableHeader=`
+    <div style="background:linear-gradient(135deg,var(--moe-dd),var(--moe));border-radius:12px 12px 0 0;
+      padding:10px 14px;display:grid;grid-template-columns:32px 1fr 90px 80px;gap:8px;align-items:center;">
+      <div style="font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);text-align:center;">م</div>
+      <div style="font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);">الطالب والطلب</div>
+      <div style="font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);text-align:center;">الحالة</div>
+      <div style="font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);text-align:center;">إجراء</div>
+    </div>`;
+
+  const rows=sorted.map((r,idx)=>{
+    const isEven=idx%2===0;
+    const bg=isEven?'#fff':'#f5fdfb';
+    const statusColors={
+      pending:{bg:'#fff3e0',color:'#e67e22',icon:'⏳'},
+      review:{bg:'#e3f2fd',color:'#1565c0',icon:'🔍'},
+      done:{bg:'#e0f7f4',color:'var(--moe-d)',icon:'✅'}
+    };
+    const sc=statusColors[r.status]||statusColors.pending;
+
+    return `
+      <div style="background:${bg};border-bottom:1px solid var(--sky2);">
+        <!-- Main row -->
+        <div style="padding:10px 14px;display:grid;grid-template-columns:32px 1fr 90px 80px;gap:8px;align-items:center;cursor:pointer;"
+             onclick="toggleRow('row-${r.id}')">
+          <!-- رقم -->
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--sky2);
+            display:flex;align-items:center;justify-content:center;
+            font-family:'Cairo',sans-serif;font-size:11px;font-weight:800;color:var(--moe-d);">
+            ${total-idx}
+          </div>
+          <!-- اسم وطلب -->
+          <div>
+            <div style="font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;color:var(--t1);margin-bottom:2px;">
+              ${r.studentName}
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+              <span class="tt ${ttC(r.type)}" style="margin-bottom:0;">${ttN(r.type)}</span>
+              <span style="font-size:9px;color:var(--t3);">📅 ${r.hijri||''} — ${r.time||''}</span>
+            </div>
+          </div>
+          <!-- حالة -->
+          <div style="text-align:center;">
+            <span style="background:${sc.bg};color:${sc.color};padding:4px 8px;border-radius:10px;font-size:10px;font-weight:700;display:inline-block;">
+              ${sc.icon} ${stN(r.status).replace('📤 ','').replace('🔍 ','').replace('✅ ','')}
+            </span>
+          </div>
+          <!-- سهم -->
+          <div style="text-align:center;color:var(--t3);font-size:14px;" id="arrow-${r.id}">▼</div>
+        </div>
+
+        <!-- تفاصيل قابلة للطي -->
+        <div id="row-${r.id}" style="display:none;padding:0 14px 14px;border-top:1px dashed var(--sky3);">
+          <!-- التاريخ كامل -->
+          <div style="font-size:10px;color:var(--t3);margin:8px 0 6px;">
+            📅 ${r.hijri||'—'} | ${r.miladi||''} — ${r.time||''}
+          </div>
+          <!-- نص الطلب -->
+          <div style="background:var(--sky);border-radius:8px;padding:10px 12px;margin-bottom:8px;
+            font-size:13px;color:var(--t2);line-height:1.8;border-right:3px solid var(--moe-l);">
+            ${r.msg}
+          </div>
+          <!-- الرد إن وجد -->
+          ${r.reply?`
+            <div class="reply-box" style="margin-top:0;margin-bottom:10px;">
+              <div class="reply-header">
+                <div class="reply-avatar">📐</div>
+                <div>
+                  <div class="reply-from">ردك على الطلب</div>
+                  <div class="reply-when">${r.replyTime||''}</div>
+                </div>
+              </div>
+              <p class="reply-text">${r.reply}</p>
+            </div>`:''}
+          <!-- أزرار -->
+          <div class="act-row">
+            ${r.status!=='done'?`
+              <button class="btn btn-sm btn-review" onclick="setStatus(${r.id},'review')">🔍 قيد الدراسة</button>
+              <button class="btn btn-sm btn-approve" onclick="setStatus(${r.id},'done')">✅ موافقة</button>`:''}
+            <button class="btn btn-sm btn-reply" onclick="openReply(${r.id})">${r.reply?'✏️ تعديل':'✍️ رد'}</button>
+            <button class="btn btn-sm btn-del" onclick="delReq(${r.id})">🗑️</button>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  const tableFooter=`
+    <div style="background:var(--sky2);border-radius:0 0 12px 12px;padding:8px 14px;
+      font-family:'Cairo',sans-serif;font-size:11px;color:var(--moe-d);font-weight:700;text-align:center;">
+      إجمالي الطلبات: ${total} | آخر تحديث: ${sorted[0]?sorted[0].hijri:'—'}
+    </div>`;
+
+  el.innerHTML=summary+`<div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,100,88,.10);border:1px solid rgba(0,166,147,.12);">`+tableHeader+rows+tableFooter+`</div>`;
+}
+
+function toggleRow(id){
+  const el=document.getElementById(id);
+  const rid=id.replace('row-','');
+  const arrow=document.getElementById('arrow-'+rid);
+  if(el.style.display==='none'){
+    el.style.display='block';
+    if(arrow)arrow.textContent='▲';
+  }else{
+    el.style.display='none';
+    if(arrow)arrow.textContent='▼';
+  }
+}
+
+function renderStList(){
+  let students=getStudents();
+  if(stListFilter!=='all')students=students.filter(s=>s.cls===stListFilter);
+  const el=document.getElementById('st-list');
+  if(!el)return;
+  if(!students.length){el.innerHTML='<p style="color:var(--t3);font-size:13px;text-align:center;padding:16px;">لا يوجد طلاب في هذا الصف</p>';return;}
+  el.innerHTML=`<div style="margin-bottom:8px;font-size:11px;color:var(--t3);font-weight:600;">إجمالي: ${students.length} طالب</div>`+
+  students.map((s,i)=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--sky);">
+      <div style="width:28px;height:28px;border-radius:50%;background:var(--sky2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--moe-d);flex-shrink:0;">${i+1}</div>
+      <div style="flex:1;">
+        <div style="font-size:13px;font-weight:700;color:var(--t1);">${s.name}</div>
+        <div style="font-size:10px;color:var(--t3);margin-top:1px;display:flex;gap:6px;align-items:center;">
+          <span style="background:var(--sky2);padding:1px 8px;border-radius:8px;">${s.cls}</span>
+          <span>🔑 ${s.id}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setStatus(id,status){const reqs=getReqs(),i=reqs.findIndex(r=>r.id===id);if(i!==-1){reqs[i].status=status;saveReqs(reqs);}renderAdmList();}
+
+function delReq(id){if(!confirm('حذف هذا الطلب؟'))return;saveReqs(getReqs().filter(r=>r.id!==id));renderAdmList();renderAdmin();}
+
+function openReply(id){
+  replyTgt=id;
+  const req=getReqs().find(r=>r.id===id);
+  document.getElementById('mo-txt').value=req?.reply||'';
+  document.getElementById('mo-reply').classList.add('on');
+}
+
+function doReply(){
+  const text=document.getElementById('mo-txt').value.trim();
+  if(!text)return;
+  const reqs=getReqs(),i=reqs.findIndex(r=>r.id===replyTgt),dt=nowDT();
+  if(i!==-1){reqs[i].reply=text;reqs[i].status='done';reqs[i].replyTime=dt.hijri+' — '+dt.time;saveReqs(reqs);}
+  showBell('teacher','✅ تم إرسال الرد!','تم إرسال ردك بنجاح وسيصل إلى ولي الأمر عند دخوله التالي.');
+  closeMo();renderAdmList();
+}
+
+function closeMo(){document.getElementById('mo-reply').classList.remove('on');}
+
+function savePW(){
+  const v=document.getElementById('pw-v').value.trim();
+  if(!v)return;S(KEY_PW,v);
+  const ok=document.getElementById('pw-ok');ok.classList.add('show');setTimeout(()=>ok.classList.remove('show'),2000);
+}
+
+function clearAll(){if(!confirm('حذف جميع الطلبات؟'))return;saveReqs([]);renderAdmin();}
+
+// ══ HELPERS ══
+function ttC(t){return{level:'tt-level',homework:'tt-homework',reexam:'tt-reexam',exam:'tt-exam',behavior:'tt-behavior',study:'tt-study',health:'tt-health',teacher:'tt-teacher',school:'tt-school',activity:'tt-activity'}[t]||'tt-school';}
+function ttN(t){return{level:'📊 مستوى الطالب',homework:'📚 استفسار عن واجب',reexam:'🔄 إعادة اختبار',exam:'📝 استفسار عن اختبار',behavior:'⚠️ مشاكل سلوكية',study:'🎯 مشاكل دراسية',health:'🏥 مشاكل صحية',teacher:'💬 ملاحظات على المعلم',school:'🏫 ملاحظات المدرسة',activity:'🏆 الأنشطة والمشاركات',other:'✏️ خدمات أخرى'}[t]||t;}
+function stN(s){return{pending:'📤 تم إرسال طلبكم',review:'🔍 طلبكم قيد الدراسة',done:'✅ تم الرد على الطلب'}[s]||s;}
+function emptyH(m){return`<div class="empty"><div class="empty-i">📭</div><p>${m}</p></div>`;}
+function tl(s){
+  const o=['pending','review','done'],c=o.indexOf(s);
+  const steps=[{i:'📤',l:'تم إرسال طلبكم'},{i:'🔍',l:'قيد الدراسة'},{i:'✅',l:'تم الرد'}];
+  return`<div class="tl">${steps.map((x,i)=>`<div class="tl-s"><div class="tl-d ${i<c?'dn':i===c?'act':''}">${x.i}</div><span class="tl-l">${x.l}</span></div>`).join('')}</div>`;
+}
+
+// ══ INIT ══
+populateDropdown();
+document.getElementById('mo-reply').addEventListener('click',function(e){if(e.target===this)closeMo();});
+</script>
+</body>
+</html>
